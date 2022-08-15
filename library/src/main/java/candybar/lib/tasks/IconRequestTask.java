@@ -22,6 +22,7 @@ import java.util.Locale;
 import candybar.lib.R;
 import candybar.lib.activities.CandyBarMainActivity;
 import candybar.lib.databases.Database;
+import candybar.lib.helpers.DrawableHelper;
 import candybar.lib.helpers.LocaleHelper;
 import candybar.lib.helpers.RequestHelper;
 import candybar.lib.items.Request;
@@ -92,7 +93,6 @@ public class IconRequestTask extends AsyncTaskBase {
                     for (ResolveInfo app : installedApps) {
                         String packageName = app.activityInfo.packageName;
                         String activity = packageName + "/" + app.activityInfo.name;
-
                         if(DrawableHelper.isAdaptiveIconDrawable(mContext.get(), activity)){
                             //忽略已适配自适应图标的APP！有效果！！！
                             //Log.d("HHH", activity);

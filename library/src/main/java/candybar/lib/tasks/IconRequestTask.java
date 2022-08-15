@@ -93,6 +93,12 @@ public class IconRequestTask extends AsyncTaskBase {
                         String packageName = app.activityInfo.packageName;
                         String activity = packageName + "/" + app.activityInfo.name;
 
+                        if(DrawableHelper.isAdaptiveIconDrawable(mContext.get(), activity)){
+                            //忽略已适配自适应图标的APP！有效果！！！
+                            //Log.d("HHH", activity);
+                            continue;
+                        }
+
                         String value = appFilter.get(activity);
 
                         if (value == null) {

@@ -365,6 +365,11 @@ public class RequestHelper {
         for (ResolveInfo app : installedApps) {
             String packageName = app.activityInfo.packageName;
             String activity = packageName + "/" + app.activityInfo.name;
+            if(DrawableHelper.isAdaptiveIconDrawable(context, activity)){
+                //忽略已适配自适应图标的APP，没有效果？？？因为仅当CandyBarMainActivity.sMissedApps == null才会执行到这里，一般来说在其他任务已经获取过，不会为空，所以很少执行到这里
+                //Log.d("HHH", activity);
+                continue;
+            }
 
             String value = appFilter.get(activity);
 

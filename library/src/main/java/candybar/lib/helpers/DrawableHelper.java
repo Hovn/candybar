@@ -101,6 +101,28 @@ public class DrawableHelper {
         }
         return null;
     }
+    
+    public static boolean isAdaptiveIconDrawable(@NonNull Context context, String componentNameStr) {
+        PackageManager packageManager = context.getPackageManager();
+
+        int slashIndex = componentNameStr.indexOf("/");
+        String packageName = componentNameStr.substring(0, slashIndex);
+        String activityName = componentNameStr.substring(slashIndex + 1);
+        ComponentName componentName = new ComponentName(packageName, activityName);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            // Load Adaptive icon if possible
+            Intent intent = new Intent();
+            intent.setComponent(componentName);
+            ResolveInfo resolveInfo = packageManager.resolveActivity(intent, 0);
+            if (resolveInfo != null) {
+                Drawable adaptiveDrawable = resolveInfo.loadIcon(packageManager);
+                if (adaptiveDrawable instanceof AdaptiveIconDrawable) return true;
+            }
+        }
+
+        return false;
+    }
 
     public static Bitmap getRightIcon(Drawable drawable) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
